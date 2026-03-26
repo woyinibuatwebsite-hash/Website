@@ -1,149 +1,124 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXOVER V8 - DATABASE ENGINE</title>
+    <meta charset="UTF-8"><title>EXOVER V8 - DATABASE ENGINE</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins'; }
         body { background:#0F0F12; color:#fff; padding:20px; display:flex; justify-content:center; }
         .container { width:100%; max-width:450px; }
-        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 15px; }
-        h1 { font-size:18px; color:#FF4D4D; font-weight: 700; }
-        .btn-logout { background:#222; color:#fff; border:none; padding:5px 15px; border-radius:50px; cursor:pointer; font-size:11px; }
-        
-        /* CARD STYLE KOTAK */
-        .card { background:#151518; border:1px solid #222; border-radius:15px; padding:20px; margin-bottom:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { font-size:22px; color:#FF4D4D; margin-bottom:20px; text-shadow:0 0 10px #FF4D4D; text-align:center; }
+        .card { background:#151518; border:1px solid #222; border-radius:15px; padding:20px; margin-bottom:20px; }
         .title { color:#FF4D4D; font-size:13px; font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:8px; text-transform: uppercase; }
         .dot { width:8px; height:8px; background:#FF4D4D; border-radius:50%; box-shadow:0 0 8px #FF4D4D; }
-        
-        input { width:100%; background:#000; border:1px solid #333; border-radius:10px; padding:12px; color:#fff; margin-bottom:15px; outline:none; transition: 0.3s; }
-        input:focus { border-color: #FF4D4D; }
-        .btn-save { width:100%; padding:14px; background:#EE2B2B; color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer; transition:0.3s; text-transform: uppercase; }
-        .btn-save:hover { background: #ff4d4d; box-shadow: 0 0 15px rgba(238, 43, 43, 0.4); }
-        .btn-save:disabled { background:#444; cursor: not-allowed; }
-
-        /* LIST CONTAINER */
-        .list-container { max-height: 250px; overflow-y: auto; background: #000; border-radius: 10px; padding: 10px; border: 1px solid #222; }
-        .list-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #111; font-size: 13px; font-family: monospace; color: #00FF41; }
-        .list-item:last-child { border-bottom: none; }
-        
-        /* ABOUT SECTION */
-        .about-me { background: linear-gradient(135deg, #151518, #201010); border-left: 4px solid #FF4D4D; padding: 15px; border-radius: 10px; font-size: 12px; line-height: 1.6; color: #aaa; }
-        .about-me b { color: #fff; }
+        input { width:100%; background:#000; border:1px solid #333; border-radius:10px; padding:12px; color:#fff; margin-bottom:10px; outline:none; }
+        .btn-save { width:100%; padding:14px; background:#EE2B2B; color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer; text-transform: uppercase; }
+        .list-container { max-height: 300px; overflow-y: auto; background: #000; border-radius: 10px; padding: 10px; border: 1px solid #222; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #111; font-size: 13px; font-family: monospace; color: #00FF41; }
+        .btn-del { background: #411; color: #ff4d4d; border: 1px solid #f00; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 10px; }
+        .about-me { background: linear-gradient(135deg, #151518, #201010); border-left: 4px solid #FF4D4D; padding: 15px; border-radius: 10px; font-size: 12px; color: #aaa; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>EXOVER V8 ENGINE</h1>
-            <button class="btn-logout" onclick="logout()">LOGOUT</button>
-        </header>
-
+        <h1>EXOVER V8 ENGINE</h1>
+        
         <div class="card">
-            <div class="title"><div class="dot"></div> ADD DATABASE NUMBER</div>
-            <input type="text" id="dbNum" placeholder="Contoh: 62812345678">
-            <button id="btnSave" class="btn-save" onclick="pushToGH()">💾 SIMPAN KE GITHUB</button>
+            <div class="title"><div class="dot"></div> ADD DATABASE</div>
+            <input type="text" id="dbNum" placeholder="Masukkan nomor...">
+            <button id="btnSave" class="btn-save" onclick="handleData('add')">💾 SIMPAN NOMOR</button>
         </div>
 
         <div class="card">
-            <div class="title"><div class="dot" style="background:#fff; box-shadow: 0 0 8px #fff;"></div> REGISTERED LIST</div>
+            <div class="title"><div class="dot" style="background:#fff;"></div> REGISTERED LIST</div>
+            <input type="text" id="search" placeholder="Cari nomor..." onkeyup="searchNum()">
             <div id="numberList" class="list-container">
-                <div style="text-align:center; color:#444; font-size:12px; padding: 20px;">Menarik data dari GitHub...</div>
+                <div style="text-align:center; color:#444; padding:20px;">Loading data...</div>
             </div>
         </div>
 
         <div class="card">
-            <div class="title"><div class="dot" style="background:#FFD700; box-shadow: 0 0 8px #FFD700;"></div> ABOUT DEVELOPER</div>
+            <div class="title"><div class="dot" style="background:#FFD700;"></div> ABOUT DEV</div>
             <div class="about-me">
                 <b>NelzzOfficial (RianModss)</b><br>
-                Sistem manajemen database otomatis untuk <b>Exover V8</b>. Semua data tersinkronisasi langsung ke repository GitHub secara realtime.
+                Database otomatis terhubung ke GitHub API. Sekali klik, bot langsung update akses.
             </div>
         </div>
     </div>
 
     <script>
-        // --- CONFIGURASI OTOMATIS ---
         const CONFIG = {
-            token: "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", 
+            token: "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", // BIARIN AJA SECRET KONTOL INI
             repo: "woyinibuatwebsite-hash/Website",
             path: "database.json"
         };
 
-        // Guard Login
-        if (localStorage.getItem("ex_auth") !== "true") window.location.href = "index.html";
+        let currentDB = [];
 
-        // Load List saat halaman dibuka
-        window.onload = fetchList;
+        window.onload = fetchDB;
 
-        async function fetchList() {
+        async function fetchDB() {
             try {
                 const res = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${CONFIG.path}`, {
                     headers: { Authorization: `token ${CONFIG.token}` }
                 });
                 const data = await res.json();
-                const list = JSON.parse(atob(data.content));
-                renderList(list);
-            } catch (e) { 
-                document.getElementById('numberList').innerHTML = "<div style='color:red;text-align:center;font-size:12px;'>Gagal Load Database!</div>"; 
-            }
+                currentDB = JSON.parse(atob(data.content));
+                render(currentDB);
+            } catch (e) { document.getElementById('numberList').innerHTML = "Gagal Load Database!"; }
         }
 
-        function renderList(arr) {
+        function render(arr) {
             const container = document.getElementById('numberList');
-            container.innerHTML = arr.length ? "" : "<div style='text-align:center;color:#444;padding:20px;'>Database Kosong</div>";
-            arr.forEach((num, index) => {
-                container.innerHTML += `<div class="list-item"><span>${index+1}. ${num}</span> <span style="color:#FF4D4D">●</span></div>`;
+            container.innerHTML = arr.length ? "" : "<div style='text-align:center;color:#444;'>Kosong</div>";
+            arr.slice().reverse().forEach(num => {
+                container.innerHTML += `
+                    <div class="list-item">
+                        <span>${num}</span>
+                        <button class="btn-del" onclick="handleData('delete', '${num}')">HAPUS</button>
+                    </div>`;
             });
         }
 
-        async function pushToGH() {
-            const num = document.getElementById('dbNum').value.trim();
-            const btn = document.getElementById('btnSave');
-            if(!num) return alert("Nomor jangan kosong!");
+        function searchNum() {
+            const val = document.getElementById('search').value;
+            const filtered = currentDB.filter(n => n.includes(val));
+            render(filtered);
+        }
 
-            btn.disabled = true; btn.innerText = "SEDANG UPDATE...";
+        async function handleData(type, target = "") {
+            const input = document.getElementById('dbNum').value;
+            if (type === 'add' && !input) return alert("Nomor mana?");
+            if (!confirm(`Yakin mau ${type}?`)) return;
 
             try {
-                // 1. Ambil data lama & SHA file
                 const getFile = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${CONFIG.path}`, {
                     headers: { Authorization: `token ${CONFIG.token}` }
                 });
                 const resFile = await getFile.json();
-                const currentData = JSON.parse(atob(resFile.content));
+                let list = JSON.parse(atob(resFile.content));
 
-                // 2. Cek apakah nomor sudah ada
-                if(currentData.includes(num)) {
-                    alert("Nomor ini sudah ada di database!");
+                if (type === 'add') {
+                    if(list.includes(input)) return alert("Nomor udah ada!");
+                    list.push(input);
                 } else {
-                    currentData.push(num);
-                    // 3. Kirim update ke GitHub
-                    const update = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${CONFIG.path}`, {
-                        method: "PUT",
-                        headers: { Authorization: `token ${CONFIG.token}`, "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            message: `Update Database: Add ${num}`,
-                            content: btoa(JSON.stringify(currentData, null, 2)),
-                            sha: resFile.sha
-                        })
-                    });
-
-                    if(update.ok) {
-                        alert("Berhasil! Database GitHub telah di-update.");
-                        renderList(currentData);
-                    } else {
-                        alert("Gagal update ke GitHub!");
-                    }
+                    list = list.filter(n => n !== target);
                 }
-            } catch (e) { 
-                alert("Terjadi kesalahan koneksi!"); 
-            } finally { 
-                btn.disabled = false; btn.innerText = "💾 SIMPAN KE GITHUB"; 
-                document.getElementById('dbNum').value = ""; 
-            }
-        }
 
-        function logout() { localStorage.removeItem("ex_auth"); window.location.href = "index.html"; }
+                await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                    method: "PUT",
+                    headers: { Authorization: `token ${CONFIG.token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: `${type} number`,
+                        content: btoa(JSON.stringify(list, null, 2)),
+                        sha: resFile.sha
+                    })
+                });
+
+                alert("Success!");
+                location.reload();
+            } catch (e) { alert("Error API!"); }
+        }
     </script>
 </body>
 </html>
