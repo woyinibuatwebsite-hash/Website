@@ -1,103 +1,39 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DATABASE EXOVER V8 - LOGIN</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #050507; color: #FFFFFF; font-family: 'Poppins', sans-serif; height: 100vh; overflow: hidden; }
-        .main-wrapper {
-            width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), 
-                              url('https://images.alphacoders.com/131/1311090.jpeg'); 
-            background-size: cover; background-position: center;
-            display: flex; justify-content: center; align-items: center; padding: 20px;
-        }
-        .login-box {
-            background-color: rgba(26, 26, 30, 0.9);
-            padding: 40px 30px; border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
-            width: 100%; max-width: 400px;
-            backdrop-filter: blur(10px); border: 1px solid rgba(255, 0, 51, 0.3);
-            text-align: center;
-        }
-        h1 { font-family: 'Audiowide', cursive; color: #FF0033; font-size: 22px; margin-bottom: 25px; letter-spacing: 1px; }
-        .input-group { width: 100%; text-align: left; margin-bottom: 15px; position: relative; }
-        .input-group label { font-size: 13px; color: #FF0033; display: block; margin-bottom: 5px; font-weight: 600; }
-        .input-group input {
-            width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #333; border-radius: 8px; color: #fff; outline: none; transition: 0.3s;
-        }
-        .input-group input:focus { border-color: #FF0033; }
-        .toggle-pw { position: absolute; right: 15px; top: 38px; cursor: pointer; color: #FF0033; font-size: 14px; }
-        .options { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 10px 0; color: #B0B0B0; text-align: left; }
-        .btn-login {
-            width: 100%; padding: 14px; background: #FF0033; color: white; border: none;
-            border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase;
-        }
-        .tag-box { margin-top: 25px; background: #fff; color: #000; padding: 8px; display: inline-block; font-weight: bold; border-radius: 4px; font-family: monospace; font-size: 11px; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#050507; color:#fff; font-family:'Poppins', sans-serif; height:100vh; overflow:hidden; }
+        .wrapper { width:100%; height:100%; background:linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.alphacoders.com/131/1311090.jpeg') center/cover; display:flex; justify-content:center; align-items:center; }
+        .box { background:rgba(26,26,30,0.9); padding:40px; border-radius:20px; box-shadow:0 0 20px #FF0033; width:100%; max-width:400px; text-align:center; border:1px solid #FF0033; }
+        h1 { font-family:'Audiowide'; color:#FF0033; margin-bottom:20px; font-size:22px; }
+        input { width:100%; padding:12px; background:#000; border:1px solid #333; border-radius:8px; color:#fff; margin-bottom:15px; outline:none; }
+        .btn { width:100%; padding:14px; background:#FF0033; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; }
+        .eye { position:absolute; right:55px; margin-top:12px; cursor:pointer; color:#FF0033; }
     </style>
 </head>
 <body>
-    <div class="main-wrapper">
-        <div class="login-box">
-            <h1>DATABASE EXOVER V8</h1>
-            <form id="loginForm">
-                <div class="input-group">
-                    <label>USER ID</label>
-                    <input type="text" id="user" placeholder="Enter ID..." required>
-                </div>
-                <div class="input-group">
-                    <label>ACCESS PW</label>
-                    <input type="password" id="pass" placeholder="Enter PW..." required>
-                    <span class="toggle-pw" id="eye" onclick="togglePass()">👁️</span>
-                </div>
-                <div class="options">
-                    <input type="checkbox" id="remember"> <label for="remember">Ingat saya</label>
-                </div>
-                <button type="submit" class="btn-login">PROCEED LOGIN</button>
-            </form>
-            <div class="tag-box">┌──────────┐<br>│ DATABASE │<br>└──────────┘</div>
+    <div class="wrapper">
+        <div class="box">
+            <h1>EXOVER DATABASE</h1>
+            <input type="text" id="user" placeholder="User ID">
+            <div style="display:flex;"><input type="password" id="pass" placeholder="Password"><span class="eye" onclick="tgl()">👁️</span></div>
+            <div style="text-align:left; font-size:12px; margin-bottom:10px;"><input type="checkbox" id="rem" style="width:auto;"> Ingat Saya</div>
+            <button class="btn" onclick="login()">PROCEED LOGIN</button>
         </div>
     </div>
-
     <script>
-        // Load Remembered User
-        window.onload = () => {
-            const savedUser = localStorage.getItem("remExover");
-            if(savedUser) {
-                document.getElementById('user').value = savedUser;
-                document.getElementById('remember').checked = true;
-            }
-        };
-
-        function togglePass() {
-            const p = document.getElementById('pass');
-            const e = document.getElementById('eye');
-            if(p.type === "password") { p.type = "text"; e.innerText = "🔒"; } 
-            else { p.type = "password"; e.innerText = "👁️"; }
-        }
-
-        document.getElementById('loginForm').onsubmit = function(e) {
-            e.preventDefault();
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-            const r = document.getElementById('remember').checked;
-
-            if(u === "Exover" && p === "admin123") {
-                if(r) localStorage.setItem("remExover", u);
-                else localStorage.removeItem("remExover");
-                
-                // SAVE SESSION
-                localStorage.setItem("exover_auth", "true");
-                
-                // Delay dikit biar localStorage kesimpen sempurna sebelum pindah
-                setTimeout(() => {
-                    window.location.href = "dashboard.html";
-                }, 100);
-            } else { alert("User/PW Salah, KNTL!"); }
+        window.onload = () => { if(localStorage.getItem("remE")) document.getElementById('user').value = localStorage.getItem("remE"); }
+        function tgl() { const p = document.getElementById('pass'); p.type = p.type === 'password' ? 'text' : 'password'; }
+        function login() {
+            if(document.getElementById('user').value === "Exover" && document.getElementById('pass').value === "admin123") {
+                if(document.getElementById('rem').checked) localStorage.setItem("remE", "Exover");
+                localStorage.setItem("ex_auth", "true");
+                window.location.href = "dashboard.html";
+            } else { alert("SALAH KNTL!"); }
         }
     </script>
 </body>
