@@ -1,95 +1,48 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal SD & SMP Nusantara Cerdas</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATABASE EXOVER V8 - LOGIN</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <div class="main-wrapper">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="icon-db">
+                    <svg viewBox="0 0 448 512" width="60" height="60"><path fill="#FF0033" d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.875 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.875 369.143 448 336z"/></svg>
+                </div>
+                <h1>DATABASE EXOVER V8</h1>
+                
+                <form action="#" method="POST">
+                    <div class="input-group">
+                        <label for="id">🆔 Database ID</label>
+                        <input type="text" id="id" name="id" placeholder="Masukkan ID Database..." required>
+                    </div>
 
-<header class="sticky">
-  <div class="container">
-    <h1>SD & SMP Nusantara Cerdas</h1>
-    <nav>
-      <a href="#profil">Profil</a>
-      <a href="#sd">SD</a>
-      <a href="#smp">SMP</a>
-      <a href="#berita">Berita</a>
-      <a href="#kontak">Kontak</a>
-    </nav>
-  </div>
-</header>
+                    <div class="input-group">
+                        <label for="key">🔑 Access Key</label>
+                        <input type="password" id="key" name="key" placeholder="Masukkan Key Database..." required>
+                    </div>
 
-<section class="hero">
-  <div class="hero-text">
-    <h2>Selamat Datang di Portal Resmi Sekolah</h2>
-    <p>Maju Bersama, Cerdas, Berkualitas</p>
-  </div>
-</section>
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Ingat saya</label>
+                    </div>
 
-<section id="profil" class="section">
-  <div class="container">
-    <h2>Profil Sekolah</h2>
-    <p>SD & SMP Nusantara Cerdas berdiri sejak 2005, berkomitmen mencetak generasi unggul dan berkarakter.</p>
-  </div>
-</section>
+                    <button type="submit" class="btn-login">SYSTEM LOGIN</button>
+                </form>
 
-<section id="sd" class="section cards">
-  <div class="container">
-    <h2>SD Nusantara Cerdas</h2>
-    <div class="card">
-      <h3>Kelas 1–6</h3>
-      <p>Fasilitas lengkap, kegiatan ekstrakurikuler menarik, dan pembelajaran berkualitas.</p>
+                <a href="https://t.me/ExoverOwner" class="owner-link">
+                    <svg viewBox="0 0 496 512" width="20" height="20"><path fill="#FF0033" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62.1-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4.1 20.8 2.5 17.7 18z"/></svg>
+                    Contact Exover
+                </a>
+            </div>
+
+            <p class="copyright">© 2026 DATABASE EXOVER V8 — Secured by NXE</p>
+        </div>
     </div>
-    <div class="card">
-      <h3>Ekstrakurikuler</h3>
-      <p>Robotik, Seni, Olahraga, Musik & Bahasa Inggris.</p>
-    </div>
-  </div>
-</section>
-
-<section id="smp" class="section cards">
-  <div class="container">
-    <h2>SMP Nusantara Cerdas</h2>
-    <div class="card">
-      <h3>Kelas 7–9</h3>
-      <p>Fokus pengembangan akademik dan soft skills.</p>
-    </div>
-    <div class="card">
-      <h3>Fasilitas</h3>
-      <p>Lab Komputer, Sains, Bahasa & Perpustakaan modern.</p>
-    </div>
-  </div>
-</section>
-
-<section id="berita" class="section berita">
-  <div class="container">
-    <h2>Berita & Pengumuman</h2>
-    <div class="card-berita">
-      <h4>PPDB 2026 Sudah Dibuka</h4>
-      <p>Pendaftaran online dibuka sampai 30 Juni 2026.</p>
-    </div>
-    <div class="card-berita">
-      <h4>Lomba Coding SMP</h4>
-      <p>Lomba diadakan 10 Mei 2026, pendaftaran gratis.</p>
-    </div>
-  </div>
-</section>
-
-<section id="kontak" class="section">
-  <div class="container">
-    <h2>Kontak Sekolah</h2>
-    <p>📍 Jl. Pendidikan No.10, Kota Cerdas</p>
-    <p>📞 +62 812-3456-7890</p>
-    <p>📧 info@nusantaracerdas.sch.id</p>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 SD & SMP Nusantara Cerdas - All Rights Reserved</p>
-</footer>
-
 </body>
 </html>
