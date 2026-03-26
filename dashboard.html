@@ -3,125 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD DATABASE EXOVER V8</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>EXOVER V8 - SCRIPT ENGINE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #0F0F12; color: #FFFFFF; display: flex; justify-content: center; height: 100vh; padding: 20px; overflow-y: auto; }
-        .wrapper { width: 100%; max-width: 450px; }
+        body { background-color: #0A0A0C; color: #EEE; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 500px; }
 
-        /* HEADER SECTION */
-        .header { margin-bottom: 25px; }
-        .header h1 { font-size: 24px; font-weight: 700; color: #FFFFFF; margin-bottom: 15px; }
-        .header-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-        .btn-header { display: flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 50px; font-size: 14px; text-decoration: none; cursor: pointer; transition: 0.3s; }
-        
-        /* Warna Merah Tua/Dark Red */
-        .btn-admin { background-color: #2F1818; color: #FF4D4D; }
-        .btn-owner { background-color: #2F1818; color: #FF4D4D; }
-        .btn-logout { background-color: #2F1818; color: #FF4D4D; }
-        .btn-header:hover { opacity: 0.8; }
+        /* Header Rebrand */
+        .header { margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .header h1 { font-family: 'Audiowide', cursive; color: #FF0033; font-size: 22px; text-shadow: 0 0 10px rgba(255, 0, 51, 0.3); }
+        .nav-links { margin-top: 10px; display: flex; gap: 10px; }
+        .nav-links a { color: #888; text-decoration: none; font-size: 12px; border: 1px solid #333; padding: 5px 12px; border-radius: 5px; transition: 0.3s; }
+        .nav-links a:hover { background: #FF0033; color: white; border-color: #FF0033; }
 
-        /* CARD STYLE */
-        .card { background-color: #1A1A1E; border-radius: 20px; border: 1px solid #222; padding: 20px; margin-bottom: 20px; }
-        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; color: #FF4D4D; }
-        .card-header h2 { font-size: 18px; font-weight: 600; color: #FFFFFF; }
+        /* Card System */
+        .section-card { background: #151518; border: 1px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .section-title { font-size: 15px; font-weight: 600; color: #FF0033; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
 
-        /* INPUTS & BUTTONS IN CARD */
-        input[type="text"], input[type="search"] {
-            width: 100%; padding: 12px 15px; background-color: #121215;
-            border: 1px solid #2A2A30; border-radius: 10px; color: #FFFFFF;
-            font-size: 14px; outline: none; transition: 0.3s;
+        /* Input & Area */
+        input, textarea {
+            width: 100%; background: #000; border: 1px solid #333; border-radius: 8px;
+            padding: 12px; color: #00FF41; font-family: monospace; font-size: 13px; outline: none; margin-bottom: 12px;
         }
-        input::placeholder { color: #666; }
-        input[type="text"]:focus, input[type="search"]:focus { border-color: #FF4D4D; }
+        input:focus, textarea:focus { border-color: #FF0033; }
+        textarea { height: 200px; resize: none; }
 
-        .btn-simpan {
-            display: inline-flex; align-items: center; gap: 8px;
-            margin-top: 15px; padding: 10px 20px; background-color: #EE2B2B;
-            color: #FFFFFF; border: none; border-radius: 10px; font-weight: 600;
-            font-size: 14px; cursor: pointer; transition: 0.3s;
+        /* Buttons */
+        .btn-action {
+            width: 100%; padding: 12px; background: #FF0033; color: white; border: none;
+            border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s;
         }
-        .btn-simpan:hover { background-color: #D31D1D; }
+        .btn-action:hover { background: #CC0029; box-shadow: 0 0 15px rgba(255, 0, 51, 0.4); }
 
-        .btn-search {
-            display: inline-flex; align-items: center; gap: 8px;
-            margin-top: 15px; padding: 10px 20px; background-color: #FFFFFF;
-            color: #111111; border: none; border-radius: 10px; font-weight: 600;
-            font-size: 14px; cursor: pointer; transition: 0.3s;
-        }
-        .btn-search:hover { background-color: #E0E0E0; }
-
-        /* TOKEN/NUMBER LIST */
-        .token-item {
-            display: flex; justify-content: space-between; align-items: center;
-            background-color: #121215; padding: 15px; border-radius: 12px;
-            margin-bottom: 10px; border: 1px solid #222;
-        }
-        .token-info { display: flex; flex-direction: column; gap: 2px; }
-        .token-val { font-family: monospace; font-size: 12px; color: #B0B0B0; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        
-        .btn-hapus {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 12px; background-color: #2F1818;
-            color: #FF4D4D; border: none; border-radius: 8px; font-weight: 600;
-            font-size: 12px; cursor: pointer; transition: 0.3s;
-        }
-        .btn-hapus:hover { opacity: 0.8; }
+        .footer-tag { text-align: center; color: #444; font-size: 11px; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        
+    <div class="container">
         <div class="header">
-            <h1>DATABASE EXOVER V8</h1>
-            <div class="header-buttons">
-                <a href="#" class="btn-header btn-admin">👤 Admin</a>
-                <a href="#" class="btn-header btn-owner">📱 Hubungi Owner</a>
-                <a href="index.html" class="btn-header btn-logout">➡Logout</a>
+            <h1>EXOVER V8 ENGINE</h1>
+            <div class="nav-links">
+                <a href="#">Admin</a>
+                <a href="#">Support</a>
+                <a href="index.html">Logout</a>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                🔴<h2>Tambah Database Number</h2>
-            </div>
-            <form id="addNumberForm">
-                <input type="text" id="newNumber" placeholder="Masukkan nomor database baru..." required>
-                <button type="submit" class="btn-simpan">💾 Simpan</button>
-            </form>
+        <div class="section-card">
+            <div class="section-title">🔴 TAMBAH DATABASE NUMBER</div>
+            <input type="text" id="dbNumber" placeholder="Contoh: 6281234567890">
+            <button class="btn-action" onclick="saveNumber()">SAVE NUMBER</button>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                🔍<h2>Cari Nomor Database</h2>
-            </div>
-            <form id="searchForm">
-                <input type="search" id="searchInput" placeholder="Cari nomor...">
-                <button type="submit" class="btn-search">🔎 Cari</button>
-            </form>
+        <div class="section-card">
+            <div class="section-title">💻 DATABASE SCRIPT EXOVER</div>
+            <textarea id="dbScript" placeholder="// Tempelkan Database Script Lu Di Sini, KNTL..."></textarea>
+            <button class="btn-action" style="background: #FFF; color: #000;" onclick="deployScript()">DEPLOY SCRIPT</button>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                🔑<h2>Daftar Database Number</h2>
-            </div>
-            <div id="numberList">
-                <div class="token-item">
-                    <div class="token-info">
-                        <span class="token-val">62812XXXXXX: AAGjJWsTuzMyLu9f9ynA0g...</span>
-                    </div>
-                    <button class="btn-hapus">🗑️ Hapus</button>
-                </div>
-                <div class="token-item">
-                    <div class="token-info">
-                        <span class="token-val">62822XXXXXX: AAFsMgQHQ3ZsUis...</span>
-                    </div>
-                    <button class="btn-hapus">🗑️ Hapus</button>
-                </div>
-            </div>
+        <div class="footer-tag">
+            ┌──────────────┐<br>
+            │ EXOVER SYSTEM │<br>
+            └──────────────┘
         </div>
-
     </div>
+
+    <script>
+        // Logic Simple
+        function saveNumber() {
+            const num = document.getElementById('dbNumber').value;
+            if(num) {
+                alert("Nomor " + num + " Berhasil Disimpan ke Engine!");
+            } else { alert("Isi Nomornya Dulu, Goblok!"); }
+        }
+
+        function deployScript() {
+            const script = document.getElementById('dbScript').value;
+            if(script) {
+                alert("Script Sedang Di-Deploy ke Database Exover...");
+                console.log("Deploying: ", script);
+            } else { alert("Mana Scriptnya? Kosong Gini!"); }
+        }
+
+        // Cek Auth Session
+        if(sessionStorage.getItem("isAuth") !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
 </html>
