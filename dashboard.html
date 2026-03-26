@@ -1,83 +1,96 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD EXOVER V8</title>
+    <meta charset="UTF-8"><title>DASHBOARD EXOVER ENGINE</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #0F0F12; color: #FFFFFF; display: flex; justify-content: center; min-height: 100vh; padding: 20px; }
-        .wrapper { width: 100%; max-width: 450px; }
-
-        .header { margin-bottom: 25px; }
-        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 15px; }
-        .btn-nav { 
-            background-color: #2F1818; color: #FF4D4D; padding: 8px 16px; border-radius: 50px; 
-            font-size: 13px; text-decoration: none; font-weight: 500; border: 1px solid transparent; cursor: pointer;
-        }
-
-        .card-kotak { 
-            background-color: #1A1A1E; border-radius: 18px; border: 1px solid #2A2A30; 
-            padding: 22px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .card-title { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #FF4D4D; font-size: 15px; font-weight: 600; }
-        .dot { height: 10px; width: 10px; background-color: #FF4D4D; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #FF4D4D; }
-
-        input, textarea {
-            width: 100%; background-color: #121215; border: 1px solid #2A2A30; border-radius: 12px; 
-            color: #FFFFFF; font-size: 14px; padding: 14px; outline: none; margin-bottom: 15px;
-        }
-        textarea { height: 180px; font-family: monospace; resize: none; color: #00FF41; }
-
-        .btn-save {
-            width: 100%; padding: 14px; background-color: #EE2B2B; color: #FFFFFF; border: none; 
-            border-radius: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.3s;
-        }
-        .btn-save:hover { background-color: #FF4D4D; box-shadow: 0 5px 15px rgba(238, 43, 43, 0.4); }
-        .btn-deploy { background-color: #FFFFFF; color: #111; margin-top: 10px; }
-
-        .footer-box { text-align: center; margin-top: 10px; color: #444; font-family: monospace; font-size: 12px; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins'; }
+        body { background:#0F0F12; color:#fff; padding:20px; display:flex; justify-content:center; }
+        .container { width:100%; max-width:450px; }
+        h1 { font-size:22px; color:#FF4D4D; margin-bottom:20px; text-shadow:0 0 10px #FF4D4D; }
+        .card { background:#1A1A1E; border:1px solid #2A2A30; border-radius:15px; padding:20px; margin-bottom:20px; box-shadow:0 10px 20px #000; }
+        .title { color:#FF4D4D; font-size:14px; font-weight:700; margin-bottom:15px; display:flex; align-items:center; gap:8px; }
+        input, textarea { width:100%; background:#121215; border:1px solid #2A2A30; border-radius:10px; padding:12px; color:#fff; margin-bottom:15px; outline:none; }
+        textarea { height:150px; color:#00FF41; font-family:monospace; }
+        .btn { width:100%; padding:14px; border:none; border-radius:10px; font-weight:700; cursor:pointer; text-transform:uppercase; transition:0.3s; }
+        .btn-red { background:#EE2B2B; color:#fff; }
+        .btn-white { background:#fff; color:#000; margin-top:10px; }
+        .btn:disabled { background:#555; cursor:not-allowed; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="header">
-            <h1>DATABASE EXOVER V8</h1>
-            <div style="display: flex; gap: 10px;">
-                <div class="btn-nav">👤 Admin</div>
-                <div class="btn-nav" onclick="logout()">➡ Logout</div>
-            </div>
+    <div class="container">
+        <h1>EXOVER V8 ENGINE</h1>
+        <div style="margin-bottom:20px;"><button class="btn-red" style="padding:5px 15px; width:auto;" onclick="logout()">LOGOUT</button></div>
+
+        <div class="card">
+            <div class="title"><div style="width:8px;height:8px;background:#FF4D4D;border-radius:50%"></div> TAMBAH DATABASE NUMBER</div>
+            <input type="text" id="dbNum" placeholder="Contoh: 62812345678">
+            <button id="btnSave" class="btn btn-red" onclick="pushToGH()">💾 SIMPAN KE GITHUB</button>
         </div>
 
-        <div class="card-kotak">
-            <div class="card-title"><span class="dot"></span> TAMBAH DATABASE NUMBER</div>
-            <input type="text" id="dbNum" placeholder="Masukkan nomor (e.g. 62812...)">
-            <button class="btn-save" onclick="alert('Nomor Tersimpan!')">💾 SIMPAN NOMOR</button>
+        <div class="card">
+            <div class="title"><div style="width:8px;height:8px;background:#fff;border-radius:50%"></div> DATABASE SCRIPT</div>
+            <textarea placeholder="// Deploy logic script lu di sini..."></textarea>
+            <button class="btn btn-white" onclick="alert('Script Deployed!')">🚀 DEPLOY SCRIPT</button>
         </div>
-
-        <div class="card-kotak">
-            <div class="card-title"><span class="dot"></span> DATABASE SCRIPT ENGINE</div>
-            <textarea id="dbScript" placeholder="// Tempelkan script database lu di sini..."></textarea>
-            <button class="btn-save btn-deploy" onclick="alert('Script Deployed!')">🚀 DEPLOY SCRIPT</button>
-        </div>
-
-        <div class="footer-box">┌──────────────┐<br>│ EXOVER SYSTEM │<br>└──────────────┘</div>
     </div>
 
     <script>
-        // CEK AUTH - FULL FIX
-        const checkAuth = () => {
-            if (localStorage.getItem("exover_auth") !== "true") {
-                window.location.replace("index.html");
+        // --- CONFIGURASI (ISI DATA LU DI SINI!) ---
+        const CONFIG = {
+            token: "ghp_xxxxxxxxxxxxxxxxxxxx", // GANTI PAKE TOKEN LU
+            repo: "username/repo-lu",           // GANTI (e.g. RianModss/database-bot)
+            path: "database.json"               // Nama file di GitHub lu
+        };
+
+        if (localStorage.getItem("ex_auth") !== "true") window.location.href = "index.html";
+
+        async function pushToGH() {
+            const num = document.getElementById('dbNum').value;
+            const btn = document.getElementById('btnSave');
+            if(!num) return alert("Isi nomornya, KNTL!");
+
+            btn.disabled = true;
+            btn.innerText = "PROCESSING...";
+
+            try {
+                // 1. Ambil File Lama
+                const getFile = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                    headers: { Authorization: `token ${CONFIG.token}` }
+                });
+                const resFile = await getFile.json();
+                const currentData = JSON.parse(atob(resFile.content)); // Decode Base64 ke Array
+
+                // 2. Cek & Tambah
+                if(currentData.includes(num)) {
+                    alert("Nomor udah ada, Goblok!");
+                } else {
+                    currentData.push(num);
+                    // 3. Upload balik ke GH
+                    const update = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${CONFIG.path}`, {
+                        method: "PUT",
+                        headers: { Authorization: `token ${CONFIG.token}`, "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            message: `Update DB: Add ${num}`,
+                            content: btoa(JSON.stringify(currentData, null, 2)), // Encode Array ke Base64
+                            sha: resFile.sha
+                        })
+                    });
+                    if(update.ok) alert("BERHASIL! Nomor kedaftar di GitHub.");
+                    else alert("GAGAL! Cek Token lu.");
+                }
+            } catch (e) {
+                alert("ERROR: Gagal konek API.");
+                console.error(e);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "💾 SIMPAN KE GITHUB";
+                document.getElementById('dbNum').value = "";
             }
         }
-        checkAuth();
 
-        function logout() {
-            localStorage.removeItem("exover_auth");
-            window.location.replace("index.html");
-        }
+        function logout() { localStorage.removeItem("ex_auth"); window.location.href = "index.html"; }
     </script>
 </body>
 </html>
