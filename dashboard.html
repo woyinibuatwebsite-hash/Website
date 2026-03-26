@@ -4,110 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DASHBOARD EXOVER V8</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: #0F0F12; color: #FFFFFF; display: flex; justify-content: center; min-height: 100vh; padding: 20px; }
         .wrapper { width: 100%; max-width: 450px; }
 
-        /* HEADER */
         .header { margin-bottom: 25px; }
-        .header h1 { font-size: 22px; font-weight: 700; color: #FFFFFF; margin-bottom: 15px; letter-spacing: 0.5px; }
-        .header-nav { display: flex; gap: 10px; }
+        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 15px; }
         .btn-nav { 
-            background-color: #2F1818; color: #FF4D4D; 
-            padding: 8px 16px; border-radius: 50px; 
-            font-size: 13px; text-decoration: none; font-weight: 500;
-            transition: 0.3s; border: 1px solid transparent;
+            background-color: #2F1818; color: #FF4D4D; padding: 8px 16px; border-radius: 50px; 
+            font-size: 13px; text-decoration: none; font-weight: 500; border: 1px solid transparent; cursor: pointer;
         }
-        .btn-nav:hover { border-color: #FF4D4D; background-color: #3F1F1F; }
 
-        /* CARD STYLE (KOTAK) */
         .card-kotak { 
-            background-color: #1A1A1E; 
-            border-radius: 18px; 
-            border: 1px solid #2A2A30; 
-            padding: 22px; 
-            margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background-color: #1A1A1E; border-radius: 18px; border: 1px solid #2A2A30; 
+            padding: 22px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
-        .card-title { 
-            display: flex; align-items: center; gap: 10px; 
-            margin-bottom: 20px; color: #FF4D4D; 
-            font-size: 15px; font-weight: 600;
-        }
+        .card-title { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #FF4D4D; font-size: 15px; font-weight: 600; }
         .dot { height: 10px; width: 10px; background-color: #FF4D4D; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #FF4D4D; }
 
-        /* INPUT & TEXTAREA */
-        input[type="text"], textarea {
-            width: 100%; background-color: #121215;
-            border: 1px solid #2A2A30; border-radius: 12px; 
-            color: #FFFFFF; font-size: 14px; padding: 14px;
-            outline: none; transition: 0.3s; margin-bottom: 15px;
+        input, textarea {
+            width: 100%; background-color: #121215; border: 1px solid #2A2A30; border-radius: 12px; 
+            color: #FFFFFF; font-size: 14px; padding: 14px; outline: none; margin-bottom: 15px;
         }
         textarea { height: 180px; font-family: monospace; resize: none; color: #00FF41; }
-        input:focus, textarea:focus { border-color: #FF4D4D; background-color: #16161A; }
 
-        /* BUTTONS */
         .btn-save {
-            width: 100%; padding: 14px; background-color: #EE2B2B;
-            color: #FFFFFF; border: none; border-radius: 12px; 
-            font-weight: 700; font-size: 14px; cursor: pointer; 
-            transition: 0.3s; text-transform: uppercase;
+            width: 100%; padding: 14px; background-color: #EE2B2B; color: #FFFFFF; border: none; 
+            border-radius: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.3s;
         }
-        .btn-save:hover { background-color: #FF4D4D; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(238, 43, 43, 0.4); }
-        
-        .btn-deploy { background-color: #FFFFFF; color: #0F0F12; }
-        .btn-deploy:hover { background-color: #E0E0E0; box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2); }
+        .btn-save:hover { background-color: #FF4D4D; box-shadow: 0 5px 15px rgba(238, 43, 43, 0.4); }
+        .btn-deploy { background-color: #FFFFFF; color: #111; margin-top: 10px; }
 
         .footer-box { text-align: center; margin-top: 10px; color: #444; font-family: monospace; font-size: 12px; }
     </style>
 </head>
 <body>
-
     <div class="wrapper">
         <div class="header">
             <h1>DATABASE EXOVER V8</h1>
-            <div class="header-nav">
-                <a href="#" class="btn-nav">👤 Admin</a>
-                <a href="#" onclick="logout()" class="btn-nav">➡ Logout</a>
+            <div style="display: flex; gap: 10px;">
+                <div class="btn-nav">👤 Admin</div>
+                <div class="btn-nav" onclick="logout()">➡ Logout</div>
             </div>
         </div>
 
         <div class="card-kotak">
             <div class="card-title"><span class="dot"></span> TAMBAH DATABASE NUMBER</div>
             <input type="text" id="dbNum" placeholder="Masukkan nomor (e.g. 62812...)">
-            <button class="btn-save" onclick="handleAction('Nomor Tersimpan!')">💾 SIMPAN NOMOR</button>
+            <button class="btn-save" onclick="alert('Nomor Tersimpan!')">💾 SIMPAN NOMOR</button>
         </div>
 
         <div class="card-kotak">
             <div class="card-title"><span class="dot"></span> DATABASE SCRIPT ENGINE</div>
-            <textarea id="dbScript" placeholder="// Tempelkan script database lu di sini, KNTL..."></textarea>
-            <button class="btn-save btn-deploy" onclick="handleAction('Script Deployed!')">🚀 DEPLOY SCRIPT</button>
+            <textarea id="dbScript" placeholder="// Tempelkan script database lu di sini..."></textarea>
+            <button class="btn-save btn-deploy" onclick="alert('Script Deployed!')">🚀 DEPLOY SCRIPT</button>
         </div>
 
-        <div class="footer-box">
-            ┌──────────────┐<br>
-            │ EXOVER SYSTEM │<br>
-            └──────────────┘
-        </div>
+        <div class="footer-box">┌──────────────┐<br>│ EXOVER SYSTEM │<br>└──────────────┘</div>
     </div>
 
     <script>
-        // CEK AUTH - JANGAN SAMPE MENTAL
-        if (sessionStorage.getItem("isAuth") !== "true") {
-            window.location.href = "index.html";
+        // CEK AUTH - FULL FIX
+        const checkAuth = () => {
+            if (localStorage.getItem("exover_auth") !== "true") {
+                window.location.replace("index.html");
+            }
         }
-
-        function handleAction(msg) {
-            alert(msg);
-        }
+        checkAuth();
 
         function logout() {
-            sessionStorage.clear();
-            window.location.href = "index.html";
+            localStorage.removeItem("exover_auth");
+            window.location.replace("index.html");
         }
     </script>
-
 </body>
 </html>
