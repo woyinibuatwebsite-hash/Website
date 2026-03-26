@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>DASHBOARD EXOVER</title>
+    <style>
+        body { background: #050507; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .panel { border: 1px solid #FF0033; padding: 50px; border-radius: 20px; text-align: center; background: #1A1A1E; }
+        h2 { color: #FF0033; }
+        button { margin-top: 20px; padding: 10px 20px; background: #FF0033; border: none; color: white; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h2>WELCOME TO EXOVER PANEL</h2>
+        <p>You have successfully PWNED the system.</p>
+        <button onclick="logout()">LOGOUT</button>
+    </div>
+    <script>
+        if(localStorage.getItem("isLogin") !== "true") { window.location.href = "index.html"; }
+        function logout() { localStorage.clear(); window.location.href = "index.html"; }
+    </script>
+</body>
+</html>
