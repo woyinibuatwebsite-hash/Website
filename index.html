@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATABASE EXOVER V8</title>
+    <title>DATABASE EXOVER V8 - LOGIN</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,15 +28,16 @@
         .input-group label { font-size: 13px; color: #FF0033; display: block; margin-bottom: 5px; font-weight: 600; }
         .input-group input {
             width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #333; border-radius: 8px; color: #fff; outline: none;
+            border: 1px solid #333; border-radius: 8px; color: #fff; outline: none; transition: 0.3s;
         }
-        .toggle-pw { position: absolute; right: 15px; top: 35px; cursor: pointer; color: #71717A; font-size: 18px; }
-        .options { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 10px 0; color: #B0B0B0; }
+        .input-group input:focus { border-color: #FF0033; }
+        .toggle-pw { position: absolute; right: 15px; top: 38px; cursor: pointer; color: #FF0033; font-size: 14px; }
+        .options { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 10px 0; color: #B0B0B0; text-align: left; }
         .btn-login {
             width: 100%; padding: 14px; background: #FF0033; color: white; border: none;
-            border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase;
         }
-        .tag-box { margin-top: 20px; background: #fff; color: #000; padding: 5px; display: inline-block; font-weight: bold; border-radius: 4px; font-size: 11px; }
+        .tag-box { margin-top: 25px; background: #fff; color: #000; padding: 8px; display: inline-block; font-weight: bold; border-radius: 4px; font-family: monospace; font-size: 11px; }
     </style>
 </head>
 <body>
@@ -51,28 +52,51 @@
                 <div class="input-group">
                     <label>ACCESS PW</label>
                     <input type="password" id="pass" placeholder="Enter PW..." required>
-                    <span class="toggle-pw" onclick="togglePass()">👁️</span>
+                    <span class="toggle-pw" id="eye" onclick="togglePass()">👁️</span>
                 </div>
                 <div class="options">
                     <input type="checkbox" id="remember"> <label for="remember">Ingat saya</label>
                 </div>
                 <button type="submit" class="btn-login">PROCEED LOGIN</button>
             </form>
-            <div class="tag-box">┌──────┐<br>│ DATABASE │<br>└──────┘</div>
+            <div class="tag-box">┌──────────┐<br>│ DATABASE │<br>└──────────┘</div>
         </div>
     </div>
 
     <script>
+        // Load Remembered User
+        window.onload = () => {
+            const savedUser = localStorage.getItem("remExover");
+            if(savedUser) {
+                document.getElementById('user').value = savedUser;
+                document.getElementById('remember').checked = true;
+            }
+        };
+
         function togglePass() {
             const p = document.getElementById('pass');
-            p.type = p.type === "password" ? "text" : "password";
+            const e = document.getElementById('eye');
+            if(p.type === "password") { p.type = "text"; e.innerText = "🔒"; } 
+            else { p.type = "password"; e.innerText = "👁️"; }
         }
 
         document.getElementById('loginForm').onsubmit = function(e) {
             e.preventDefault();
-            if(document.getElementById('user').value === "Exover" && document.getElementById('pass').value === "admin123") {
-                localStorage.setItem("isLogin", "true");
-                window.location.href = "dashboard.html";
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            const r = document.getElementById('remember').checked;
+
+            if(u === "Exover" && p === "admin123") {
+                if(r) localStorage.setItem("remExover", u);
+                else localStorage.removeItem("remExover");
+                
+                // SAVE SESSION
+                localStorage.setItem("exover_auth", "true");
+                
+                // Delay dikit biar localStorage kesimpen sempurna sebelum pindah
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 100);
             } else { alert("User/PW Salah, KNTL!"); }
         }
     </script>
