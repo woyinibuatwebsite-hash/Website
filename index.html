@@ -3,63 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATABASE EXOVER V8 - ACCESS SYSTEM</title>
+    <title>DATABASE EXOVER V8</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #050507; color: #FFFFFF; font-family: 'Poppins', sans-serif; height: 100vh; overflow: hidden; }
-        
-        /* Background Anime & Blur */
         .main-wrapper {
             width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9)), 
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), 
                               url('https://images.alphacoders.com/131/1311090.jpeg'); 
             background-size: cover; background-position: center;
             display: flex; justify-content: center; align-items: center; padding: 20px;
         }
-
         .login-box {
-            background-color: rgba(26, 26, 30, 0.85);
+            background-color: rgba(26, 26, 30, 0.9);
             padding: 40px 30px; border-radius: 20px;
-            box-shadow: 0 0 25px rgba(255, 0, 51, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
             width: 100%; max-width: 400px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 0, 51, 0.4);
+            backdrop-filter: blur(10px); border: 1px solid rgba(255, 0, 51, 0.3);
             text-align: center;
         }
-
-        h1 { font-family: 'Audiowide', cursive; color: #FF0033; font-size: 22px; letter-spacing: 2px; margin-bottom: 25px; }
-
-        .input-group { width: 100%; text-align: left; margin-bottom: 15px; }
+        h1 { font-family: 'Audiowide', cursive; color: #FF0033; font-size: 22px; margin-bottom: 25px; letter-spacing: 1px; }
+        .input-group { width: 100%; text-align: left; margin-bottom: 15px; position: relative; }
         .input-group label { font-size: 13px; color: #FF0033; display: block; margin-bottom: 5px; font-weight: 600; }
         .input-group input {
-            width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #444; border-radius: 8px; color: #fff; outline: none; transition: 0.3s;
+            width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333; border-radius: 8px; color: #fff; outline: none;
         }
-        .input-group input:focus { border-color: #FF0033; box-shadow: 0 0 10px rgba(255, 0, 51, 0.4); }
-
+        .toggle-pw { position: absolute; right: 15px; top: 35px; cursor: pointer; color: #71717A; font-size: 18px; }
+        .options { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 10px 0; color: #B0B0B0; }
         .btn-login {
             width: 100%; padding: 14px; background: #FF0033; color: white; border: none;
-            border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase;
-            transition: 0.3s; margin-top: 10px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px;
         }
-        .btn-login:hover { background: #CC0029; box-shadow: 0 0 15px #FF0033; }
-
-        .owner-link { color: #FF0033; text-decoration: none; font-size: 13px; display: block; margin-top: 15px; }
-        
-        /* Unicode Box Paling Kecil & Nyambung */
-        .tag-penipuan {
-            margin-top: 20px; color: #000; background: #fff;
-            display: inline-block; padding: 2px 8px; font-weight: bold;
-            font-size: 12px; border-radius: 4px;
-        }
+        .tag-box { margin-top: 20px; background: #fff; color: #000; padding: 5px; display: inline-block; font-weight: bold; border-radius: 4px; font-size: 11px; }
     </style>
 </head>
 <body>
     <div class="main-wrapper">
         <div class="login-box">
             <h1>DATABASE EXOVER V8</h1>
-            
             <form id="loginForm">
                 <div class="input-group">
                     <label>USER ID</label>
@@ -68,33 +51,29 @@
                 <div class="input-group">
                     <label>ACCESS PW</label>
                     <input type="password" id="pass" placeholder="Enter PW..." required>
+                    <span class="toggle-pw" onclick="togglePass()">👁️</span>
+                </div>
+                <div class="options">
+                    <input type="checkbox" id="remember"> <label for="remember">Ingat saya</label>
                 </div>
                 <button type="submit" class="btn-login">PROCEED LOGIN</button>
             </form>
-
-            <a href="#" class="owner-link">Contact Exover Owner</a>
-            
-            <div class="tag-penipuan">┌──────┐<br>│PENIPUAN│<br>└──────┘</div>
+            <div class="tag-box">┌──────┐<br>│ DATABASE │<br>└──────┘</div>
         </div>
     </div>
 
     <script>
-        // --- DATA LOGIN RAHASIA ---
-        const USER_DB = "Exover";
-        const PASS_DB = "admin123";
-        // --------------------------
+        function togglePass() {
+            const p = document.getElementById('pass');
+            p.type = p.type === "password" ? "text" : "password";
+        }
 
         document.getElementById('loginForm').onsubmit = function(e) {
             e.preventDefault();
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-
-            if(u === USER_DB && p === PASS_DB) {
-                alert("✅ LOGIN SUCCESS! System Owned By Exover.");
-                window.location.href = "https://t.me/your_bot_link"; // Redirect ke bot lu
-            } else {
-                alert("❌ GOBLOK! User atau PW Salah, KNTL!");
-            }
+            if(document.getElementById('user').value === "Exover" && document.getElementById('pass').value === "admin123") {
+                localStorage.setItem("isLogin", "true");
+                window.location.href = "dashboard.html";
+            } else { alert("User/PW Salah, KNTL!"); }
         }
     </script>
 </body>
