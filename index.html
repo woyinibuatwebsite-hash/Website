@@ -3,46 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATABASE EXOVER V8 - LOGIN</title>
-    <link rel="stylesheet" href="style.css">
+    <title>DATABASE EXOVER V8 - ACCESS SYSTEM</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #050507; color: #FFFFFF; font-family: 'Poppins', sans-serif; height: 100vh; overflow: hidden; }
+        
+        /* Background Anime & Blur */
+        .main-wrapper {
+            width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9)), 
+                              url('https://images.alphacoders.com/131/1311090.jpeg'); 
+            background-size: cover; background-position: center;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+
+        .login-box {
+            background-color: rgba(26, 26, 30, 0.85);
+            padding: 40px 30px; border-radius: 20px;
+            box-shadow: 0 0 25px rgba(255, 0, 51, 0.3);
+            width: 100%; max-width: 400px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            text-align: center;
+        }
+
+        h1 { font-family: 'Audiowide', cursive; color: #FF0033; font-size: 22px; letter-spacing: 2px; margin-bottom: 25px; }
+
+        .input-group { width: 100%; text-align: left; margin-bottom: 15px; }
+        .input-group label { font-size: 13px; color: #FF0033; display: block; margin-bottom: 5px; font-weight: 600; }
+        .input-group input {
+            width: 100%; padding: 12px 15px; background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #444; border-radius: 8px; color: #fff; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: #FF0033; box-shadow: 0 0 10px rgba(255, 0, 51, 0.4); }
+
+        .btn-login {
+            width: 100%; padding: 14px; background: #FF0033; color: white; border: none;
+            border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            transition: 0.3s; margin-top: 10px;
+        }
+        .btn-login:hover { background: #CC0029; box-shadow: 0 0 15px #FF0033; }
+
+        .owner-link { color: #FF0033; text-decoration: none; font-size: 13px; display: block; margin-top: 15px; }
+        
+        /* Unicode Box Paling Kecil & Nyambung */
+        .tag-penipuan {
+            margin-top: 20px; color: #000; background: #fff;
+            display: inline-block; padding: 2px 8px; font-weight: bold;
+            font-size: 12px; border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <div class="main-wrapper">
-        <div class="login-container">
-            <div class="login-box">
-                <div class="icon-db">
-                    <svg viewBox="0 0 448 512" width="60" height="60"><path fill="#FF0033" d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.875 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.875 369.143 448 336z"/></svg>
+        <div class="login-box">
+            <h1>DATABASE EXOVER V8</h1>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>USER ID</label>
+                    <input type="text" id="user" placeholder="Enter ID..." required>
                 </div>
-                <h1>DATABASE EXOVER V8</h1>
-                
-                <form action="#" method="POST">
-                    <div class="input-group">
-                        <label for="id">🆔 Database ID</label>
-                        <input type="text" id="id" name="id" placeholder="Masukkan ID Database..." required>
-                    </div>
+                <div class="input-group">
+                    <label>ACCESS PW</label>
+                    <input type="password" id="pass" placeholder="Enter PW..." required>
+                </div>
+                <button type="submit" class="btn-login">PROCEED LOGIN</button>
+            </form>
 
-                    <div class="input-group">
-                        <label for="key">🔑 Access Key</label>
-                        <input type="password" id="key" name="key" placeholder="Masukkan Key Database..." required>
-                    </div>
-
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Ingat saya</label>
-                    </div>
-
-                    <button type="submit" class="btn-login">SYSTEM LOGIN</button>
-                </form>
-
-                <a href="https://t.me/ExoverOwner" class="owner-link">
-                    <svg viewBox="0 0 496 512" width="20" height="20"><path fill="#FF0033" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62.1-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4.1 20.8 2.5 17.7 18z"/></svg>
-                    Contact Exover
-                </a>
-            </div>
-
-            <p class="copyright">© 2026 DATABASE EXOVER V8 — Secured by NXE</p>
+            <a href="#" class="owner-link">Contact Exover Owner</a>
+            
+            <div class="tag-penipuan">┌──────┐<br>│PENIPUAN│<br>└──────┘</div>
         </div>
     </div>
+
+    <script>
+        // --- DATA LOGIN RAHASIA ---
+        const USER_DB = "Exover";
+        const PASS_DB = "admin123";
+        // --------------------------
+
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+
+            if(u === USER_DB && p === PASS_DB) {
+                alert("✅ LOGIN SUCCESS! System Owned By Exover.");
+                window.location.href = "https://t.me/your_bot_link"; // Redirect ke bot lu
+            } else {
+                alert("❌ GOBLOK! User atau PW Salah, KNTL!");
+            }
+        }
+    </script>
 </body>
 </html>
